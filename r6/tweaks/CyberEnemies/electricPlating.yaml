@@ -1,0 +1,129 @@
+BaseStats.CE_HasElectricPlate:
+  $type: Stat
+  enumName: CE_HasElectricPlate
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+Ability.CEElectricPlating:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_thunderPlating"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_thunderPlating"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.ElectricResistance
+          value: 100
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.ElectrocuteImmunity
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.EMPImmunity
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasElectricPlate
+          value: 1   
+
+BaseStatusEffect.CE_ElectricPlatingActive:
+  $type: StatusEffect
+  gameplayTags: ["Buff"]
+  VFX:
+    - $type: StatusEffectFX
+      name: status_emp
+    - $type: StatusEffectFX
+      name: status_electrocuted
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 5
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  packages:
+    - $type: GameplayLogicPackage
+      effectors:
+        - $type: Effector
+          effectorClassName: CyberEnemies.ElectricPlating.ElectricPlatingEffector
+          prereqRecord: 
+            $type: HitPrereq
+            callbackType: HitReceived
+            ignoreSelfInflictedPressureWave: true
+            isSynchronous: true
+            pipelineStage: Process       
+            pipelineType: Damage
+            prereqClassName: HitReceivedPrereq
+            conditions:
+              - $type: HitPrereqCondition
+                type: Prereqs.WeaponType
+                weaponType: Melee
+        - $type: Effector
+          effectorClassName: CyberEnemies.ElectricPlating.ElectricPlatingEffector2
+          prereqRecord: 
+            $type: HitPrereq
+            callbackType: HitTriggered
+            ignoreSelfInflictedPressureWave: true
+            isSynchronous: true
+            pipelineStage: Process
+            pipelineType: Damage
+            prereqClassName: HitTriggeredPrereq
+            conditions:
+              - $type: HitPrereqCondition
+                type: Prereqs.WeaponType
+                weaponType: Melee           
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+BaseStatusEffect.CEElectricPlateCooldown:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 5
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+
+UIIcon.Ability.CEElectricPlating:
+  $type: UIIcon
+  atlasPartName: ICONSTsunade
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CEElectricPlatingAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CEElectricPlating

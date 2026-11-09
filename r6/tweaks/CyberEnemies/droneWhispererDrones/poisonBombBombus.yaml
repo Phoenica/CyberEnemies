@@ -1,0 +1,70 @@
+BaseStats.CE_HasBombDrone1:
+  $type: Stat
+  enumName: CE_HasBombDrone1
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+Ability.CE_HasBombDrone1:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_combatDrones"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_combatDrones"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasCombatDrones
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasBombDrone1
+          value: 1
+
+
+UIIcon.Ability.CE_HasBombDrone1:
+  $type: UIIcon
+  atlasPartName: ICONS_Carrier
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CE_HasBombDrone1AbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_HasBombDrone1
+
+
+BaseStatusEffect.CE_HasBombDrone1Cooldown:
+  $type: StatusEffect
+  gameplayTags: ["Debuff", "CE_DroneSpawnerCD"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+
+
+Character.CE_HasBombDrone1:
+  $base: Character.sq025_delamain_drone_bombus_fast
+  displayName: LocKey#cyberEnemies_scannerBombus_name
+  scannerModulePreset: ScanningNPCPresets.ScannerPreset_NPCNoAffiliation
+  characterType: NPCType.Cerberus
+  rarity: NPCRarity.Normal
+  abilities:
+    - !append Ability.CE_PoisonBomb
+  tags:
+    - !append CEModPuppet
+    - !append CEModRoboBomb
+  # $base: Character.sq025_delamain_drone_bombus_slow
+  # primaryEquipment: Character.Drone_Wyvern_Base_inline0

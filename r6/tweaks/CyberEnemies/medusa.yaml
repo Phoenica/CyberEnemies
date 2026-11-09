@@ -1,0 +1,205 @@
+Ability.CEMedusa:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_medusa"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_medusa"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasMedusa
+          value: 1
+
+
+UIIcon.Ability.CEMedusa:
+  $type: UIIcon
+  atlasPartName: ICONS_Gorgon
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CEMedusaAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CEMedusa
+
+
+BaseStats.CE_HasMedusa:
+  $type: Stat
+  enumName: CE_HasMedusa
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+BaseStatusEffect.CEMedusaCooldown:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 20
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+
+BaseStatusEffect.CEMedusaChargeUp:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 0.65
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  packages:
+    - $type: GameplayLogicPackage
+      stackable: false
+      effectors:
+        - $type: ApplyStatusEffectEffector
+          applicationTarget: None
+          count: 1
+          effectorClassName: ApplyStatusEffectEffector
+          removeWithEffector: true
+          inverted: true
+          prereqRecord: Prereqs.AlwaysTruePrereq
+          statusEffect: BaseStatusEffect.MedusaReady
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+BaseStatusEffect.MedusaReady:
+  $type: StatusEffect
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 1
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: RTDB.StatusEffect_inline0
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  packages:
+    - $type: GameplayLogicPackage
+      effectors: 
+        - $type: Effector      
+          effectorClassName: CyberEnemies.Medusa.ApplyStatusEffector
+          prereqRecord: Prereqs.AlwaysTruePrereq
+
+BaseStatusEffect.CEMedusaBlind1: 
+  $base: BaseStatusEffect.Blind
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 6
+  uiData: None
+
+BaseStatusEffect.CEMedusaBlind2: 
+  $base: BaseStatusEffect.Blind
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 4.5
+  uiData: None
+
+BaseStatusEffect.CEMedusaBlind3: 
+  $base: BaseStatusEffect.Blind
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 3.25
+  uiData: None
+
+BaseStatusEffect.CEMedusaBlind4: 
+  $base: BaseStatusEffect.Blind
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 2.5
+  uiData: None  
+
+  
+BaseStatusEffect.CEMedusaBlind5: 
+  $base: BaseStatusEffect.Blind
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 1.6
+  uiData: None  
+
+
+BaseStatusEffect.CEMedusaBlind6: 
+  $base: BaseStatusEffect.Blind
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 0.8
+  uiData: None  
+
+
+BaseStatusEffect.CEMedusaBlind7: 
+  $base: BaseStatusEffect.Blind
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 0.35
+  uiData: None  

@@ -1,0 +1,169 @@
+Ability.CEScanShield:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_scanShield"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_scanShield"
+  showInCodex: true
+
+Ability.CEScanShieldHologram:
+  $type: GameplayAbility
+  showInCodex: false
+
+UIIcon.Ability.CEScanShield:
+  $type: UIIcon
+  atlasPartName: ICONS_ScanShield
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CEScanShieldAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CEScanShield
+
+Ability.CEScavScanShield:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_scanShieldScav"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_scanShieldScav"
+  showInCodex: true
+
+UIIcon.Ability.CEScavScanShield:
+  $type: UIIcon
+  atlasPartName: face_morph
+  atlasResourcePath: base\gameplay\gui\common\icons\mappin_icons.inkatlas
+
+CEScavScanShieldAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CEScavScanShield
+
+BaseStats.CE_HasGoodKiroshi:
+  $type: Stat
+  enumName: CE_HasGoodKiroshi
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+BaseStats.CE_HasMehKiroshi:
+  $type: Stat
+  enumName: CE_HasMehKiroshi
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+Items.$(item):
+  $instances:
+    - { item: AdvancedKiroshiOpticsBareEpic }
+    - { item: AdvancedKiroshiOpticsBareEpicPlus }
+    - { item: AdvancedKiroshiOpticsBareLegendary }
+    - { item: AdvancedKiroshiOpticsBareLegendaryPlus }
+    - { item: AdvancedKiroshiOpticsBareLegendaryPlusPlus }
+    - { item: AdvancedKiroshiOpticsWallhackEpic }
+    - { item: AdvancedKiroshiOpticsWallhackEpicPlus }
+    - { item: AdvancedKiroshiOpticsWallhackLegendary }
+    - { item: AdvancedKiroshiOpticsWallhackLegendaryPlus }
+    - { item: AdvancedKiroshiOpticsWallhackLegendaryPlusPlus }
+    - { item: Iconic_AdvancedKiroshiOpticsBareEpic }
+    - { item: Iconic_AdvancedKiroshiOpticsBareEpicPlus }
+    - { item: Iconic_AdvancedKiroshiOpticsBareLegendary }
+    - { item: Iconic_AdvancedKiroshiOpticsBareLegendaryPlus }
+    - { item: Iconic_AdvancedKiroshiOpticsBareLegendaryPlusPlus }
+    - { item: AdvancedKiroshiOpticsHunterEpic }
+    - { item: AdvancedKiroshiOpticsHunterEpicPlus }
+    - { item: AdvancedKiroshiOpticsHunterLegendary }
+    - { item: AdvancedKiroshiOpticsHunterLegendaryPlus }
+    - { item: AdvancedKiroshiOpticsHunterLegendaryPlusPlus }   
+    - { item: AdvancedKiroshiOpticsSensorEpic }
+    - { item: AdvancedKiroshiOpticsSensorEpicPlus }
+    - { item: AdvancedKiroshiOpticsSensorLegendary }
+    - { item: AdvancedKiroshiOpticsSensorLegendaryPlus }
+    - { item: AdvancedKiroshiOpticsSensorLegendaryPlusPlus }  
+    - { item: AdvancedKiroshiOpticsPiercingEpic }
+    - { item: AdvancedKiroshiOpticsPiercingEpicPlus }
+    - { item: AdvancedKiroshiOpticsPiercingLegendary }
+    - { item: AdvancedKiroshiOpticsPiercingLegendaryPlus }
+    - { item: AdvancedKiroshiOpticsPiercingLegendaryPlusPlus }
+    - { item: AdvancedKiroshiOpticsCombinedEpic }
+    - { item: AdvancedKiroshiOpticsCombinedEpicPlus }
+    - { item: AdvancedKiroshiOpticsCombinedLegendary }
+    - { item: AdvancedKiroshiOpticsCombinedLegendaryPlus }
+    - { item: AdvancedKiroshiOpticsCombinedLegendaryPlusPlus }      
+  OnEquip:
+    - !append
+      $type: GameplayLogicPackage
+      stats: 
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasGoodKiroshi
+          value: 1  
+
+
+
+Items.$(item):
+  $instances:
+    - { item: AdvancedKiroshiOpticsBareUncommon }
+    - { item: AdvancedKiroshiOpticsBareUncommonPlus }
+    - { item: AdvancedKiroshiOpticsBareRare }
+    - { item: AdvancedKiroshiOpticsBareRarePlus }
+    - { item: AdvancedKiroshiOpticsWallhackUncommon }
+    - { item: AdvancedKiroshiOpticsWallhackUncommonPlus }
+    - { item: AdvancedKiroshiOpticsWallhackRare }
+    - { item: AdvancedKiroshiOpticsWallhackRarePlus }
+    - { item: AdvancedKiroshiOpticsHunterUncommon }
+    - { item: AdvancedKiroshiOpticsHunterUncommonPlus }
+    - { item: AdvancedKiroshiOpticsHunterRare }
+    - { item: AdvancedKiroshiOpticsHunterRarePlus }
+    - { item: AdvancedKiroshiOpticsSensor_Uncommon }
+    - { item: AdvancedKiroshiOpticsSensorUncommonPlus }
+    - { item: AdvancedKiroshiOpticsSensorRare }
+    - { item: AdvancedKiroshiOpticsSensorRarePlus }
+    - { item: AdvancedKiroshiOpticsPiercingUncommon }
+    - { item: AdvancedKiroshiOpticsPiercingUncommonPlus }
+    - { item: AdvancedKiroshiOpticsPiercingRare }
+    - { item: AdvancedKiroshiOpticsPiercingRarePlus }
+    - { item: AdvancedKiroshiOpticsCombinedRare }
+    - { item: AdvancedKiroshiOpticsCombinedRarePlus }
+    - { item: AdvancedKiroshiOpticsCombinedUncommon }
+    - { item: AdvancedKiroshiOpticsCombinedUncommonPlus }
+    - { item: AdvancedKiroshiOpticsBareEpic }
+    - { item: AdvancedKiroshiOpticsBareEpicPlus }
+    - { item: AdvancedKiroshiOpticsBareLegendary }
+    - { item: AdvancedKiroshiOpticsBareLegendaryPlus }
+    - { item: AdvancedKiroshiOpticsBareLegendaryPlusPlus }
+    - { item: AdvancedKiroshiOpticsWallhackEpic }
+    - { item: AdvancedKiroshiOpticsWallhackEpicPlus }
+    - { item: AdvancedKiroshiOpticsWallhackLegendary }
+    - { item: AdvancedKiroshiOpticsWallhackLegendaryPlus }
+    - { item: AdvancedKiroshiOpticsWallhackLegendaryPlusPlus }
+    - { item: Iconic_AdvancedKiroshiOpticsBareEpic }
+    - { item: Iconic_AdvancedKiroshiOpticsBareEpicPlus }
+    - { item: Iconic_AdvancedKiroshiOpticsBareLegendary }
+    - { item: Iconic_AdvancedKiroshiOpticsBareLegendaryPlus }
+    - { item: Iconic_AdvancedKiroshiOpticsBareLegendaryPlusPlus }
+    - { item: AdvancedKiroshiOpticsHunterEpic }
+    - { item: AdvancedKiroshiOpticsHunterEpicPlus }
+    - { item: AdvancedKiroshiOpticsHunterLegendary }
+    - { item: AdvancedKiroshiOpticsHunterLegendaryPlus }
+    - { item: AdvancedKiroshiOpticsHunterLegendaryPlusPlus }   
+    - { item: AdvancedKiroshiOpticsSensorEpic }
+    - { item: AdvancedKiroshiOpticsSensorEpicPlus }
+    - { item: AdvancedKiroshiOpticsSensorLegendary }
+    - { item: AdvancedKiroshiOpticsSensorLegendaryPlus }
+    - { item: AdvancedKiroshiOpticsSensorLegendaryPlusPlus }  
+    - { item: AdvancedKiroshiOpticsPiercingEpic }
+    - { item: AdvancedKiroshiOpticsPiercingEpicPlus }
+    - { item: AdvancedKiroshiOpticsPiercingLegendary }
+    - { item: AdvancedKiroshiOpticsPiercingLegendaryPlus }
+    - { item: AdvancedKiroshiOpticsPiercingLegendaryPlusPlus }
+    - { item: AdvancedKiroshiOpticsCombinedEpic }
+    - { item: AdvancedKiroshiOpticsCombinedEpicPlus }
+    - { item: AdvancedKiroshiOpticsCombinedLegendary }
+    - { item: AdvancedKiroshiOpticsCombinedLegendaryPlus }
+    - { item: AdvancedKiroshiOpticsCombinedLegendaryPlusPlus }    
+  OnEquip:
+    - !append
+      $type: GameplayLogicPackage
+      stats: 
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasMehKiroshi
+          value: 1  

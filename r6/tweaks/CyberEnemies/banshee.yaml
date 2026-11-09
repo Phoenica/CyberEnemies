@@ -1,0 +1,245 @@
+Ability.CEBanshee:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_banshee"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_banshee"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasBanshee
+          value: 1
+
+
+UIIcon.Ability.CEBanshee:
+  $type: UIIcon
+  atlasPartName: ICONS_CanUseHowl
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CEBansheeAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CEBanshee
+
+
+BaseStats.CE_HasBanshee:
+  $type: Stat
+  enumName: CE_HasBanshee
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+BaseStatusEffect.CEBansheeCooldownDurationStat:
+  $type: ConstantStatModifier
+  modifierType: Additive
+  statType: BaseStats.MaxDuration
+  value: 30
+
+BaseStatusEffect.CEBansheeCooldown:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - BaseStatusEffect.CEBansheeCooldownDurationStat
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+
+BaseStatusEffect.CEBansheeChargeUp:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 1.0
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  packages:
+    - $type: GameplayLogicPackage
+      stackable: false
+      effectors:
+        - $type: ApplyStatusEffectEffector
+          applicationTarget: None
+          count: 1
+          effectorClassName: ApplyStatusEffectEffector
+          removeWithEffector: true
+          inverted: true
+          prereqRecord: Prereqs.AlwaysTruePrereq
+          statusEffect: BaseStatusEffect.BansheeReady
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+BaseStatusEffect.BansheeReady:
+  $type: StatusEffect
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 0.8
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: RTDB.StatusEffect_inline0
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  packages:
+    - $type: GameplayLogicPackage
+      effectors: 
+        - $type: Effector      
+          effectorClassName: CyberEnemies.Banshee.ApplyStatusEffector
+          prereqRecord: Prereqs.AlwaysTruePrereq
+
+BaseStatusEffect.CEBansheeLongStun:
+  $base: BaseStatusEffect.Stun
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 2.5
+  uiData: None
+
+BaseStatusEffect.CEBansheeMediumStun:
+  $base: BaseStatusEffect.Stun
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 1.25
+  uiData: None
+
+BaseStatusEffect.CEBansheeShortStun:
+  $base: BaseStatusEffect.Stun
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 0.5
+  uiData: None
+
+
+BaseStatusEffect.CEBansheeDrillShake3:
+  $base: BaseStatusEffect.DrillingShakeHeavy
+  uiData: None
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 1    
+
+BaseStatusEffect.CEBansheeDrillShake2:
+  $base: BaseStatusEffect.DrillingShakeMedium
+  uiData: None
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 1    
+
+BaseStatusEffect.CEBansheeDrillShake1:
+  $base: BaseStatusEffect.DrillingShakeNormal
+  uiData: None
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 1    
+
+BaseStatusEffect.CEBansheeStaggerEffect:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 3
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  packages:
+    - $type: GameplayLogicPackage
+      stackable: true
+      effectors:
+        - $type: ApplyStatGroupEffector
+          applicationTarget: Weapon
+          effectorClassName: ApplyStatGroupEffector
+          prereqRecord: Prereqs.AlwaysTruePrereq
+          removeWithEffector: true
+          statGroup: 
+            $type: StatModifierGroup
+            statModsLimit: -1
+            statModifiers:
+              - $type: ConstantStatModifier
+                modifierType: AdditiveMultiplier
+                statType: BaseStats.AttackSpeed
+                value: -0.2
+      stats: 
+        - $type: ConstantStatModifier
+          modifierType: AdditiveMultiplier
+          statType: BaseStats.MaxSpeed
+          value: -0.2
+        - $type: ConstantStatModifier
+          modifierType: AdditiveMultiplier
+          statType: BaseStats.JumpHeight
+          value: -0.2       
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 3
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true

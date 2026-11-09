@@ -1,0 +1,164 @@
+BaseStats.CE_HasFlameArmor:
+  $type: Stat
+  enumName: CE_HasFlameArmor
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+Ability.CE_HasFlameArmor:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_flameArmor"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_flameArmor"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.ThermalResistance
+          value: 100
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.BurningImmunity
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasFlameArmor
+          value: 1   
+
+BaseStatusEffect.CE_FlameArmorActive:
+  $type: StatusEffect
+  gameplayTags: ["Buff"]
+  VFX:
+    - $type: StatusEffectFX
+      name: hacks_overheat_android
+    - $type: StatusEffectFX
+      name: status_fire_resistance
+    - $type: StatusEffectFX
+      name: idle_thermal
+    - $type: StatusEffectFX
+      name: trail_thermal
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 5
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  packages:
+    - $type: GameplayLogicPackage
+      effectors:
+        - $type: Effector
+          effectorClassName: CyberEnemies.FlamingArmor.FlameEffector
+          prereqRecord: 
+            $type: HitPrereq
+            callbackType: HitReceived
+            ignoreSelfInflictedPressureWave: true
+            isSynchronous: true
+            pipelineStage: Process       
+            pipelineType: Damage
+            prereqClassName: HitReceivedPrereq
+            conditions:
+              - $type: HitPrereqCondition
+                type: Prereqs.WeaponType
+                weaponType: Melee
+        - $type: Effector
+          effectorClassName: CyberEnemies.FlamingArmor.FlameEffector2
+          prereqRecord: 
+            $type: HitPrereq
+            callbackType: HitTriggered
+            ignoreSelfInflictedPressureWave: true
+            isSynchronous: true
+            pipelineStage: Process
+            pipelineType: Damage
+            prereqClassName: HitTriggeredPrereq
+            conditions:
+              - $type: HitPrereqCondition
+                type: Prereqs.WeaponType
+                weaponType: Melee           
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+BaseStatusEffect.CE_FlameArmorActivation:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 5
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  packages:
+    - $type: GameplayLogicPackage
+      effectors:
+        - $type: TriggerAttackEffector
+          effectorClassName: TriggerAttackByChanceEffector
+          selfStatusEffect: BaseStatusEffect.CE_FlameArmorCooldown
+          attackRecord: Attacks.MediumIncendiaryGrenade
+          chance: 1.0
+          prereqRecord: Prereqs.AlwaysTruePrereq
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+    
+
+BaseStatusEffect.CE_FlameArmorCooldown:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 30
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+
+UIIcon.Ability.CE_HasFlameArmor:
+  $type: UIIcon
+  atlasPartName: ICONS_FlameArmor
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CE_HasFlameArmorAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_HasFlameArmor

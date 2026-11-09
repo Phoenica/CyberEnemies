@@ -1,0 +1,131 @@
+Character.ma_wat_kab_02_cyberpsycho:
+  archetypeData: ArchetypeData.FastSniperT3
+
+Character.ma_wat_lch_06_cyberpsycho.primaryEquipment: Items.CE_AutoLoaderDefenderGroup
+
+
+Character.ma_pac_cvi_15_cyberpsycho:
+  archetypeData: ArchetypeData.NetrunnerT3
+
+  
+Character.ma_pac_cvi_12_outpost_miniboss:
+  archetypeData: ArchetypeData.FastRangedT3
+
+Character.ma_pac_cvi_12_outpost_miniboss_inline1:
+  item: Items.Preset_Nowaki_AutoloaderRapidFire
+
+Character.ma_std_rcr_08_captain:
+  rarity: NPCRarity.Elite
+
+Character.ma_std_rcr_08_outpost_miniboss_inline1:
+  item: Items.Preset_Omaha_RapidFire
+
+Character.kab_02_enemy_leader_tier2:
+  rarity: NPCRarity.Rare
+
+BaseStatusEffect.PernamentCyberwareDisable:
+  $type: StatusEffect
+  gameplayTags: ["Debuff", "CyberwareMalfunction"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  packages:
+    - $type: GameplayLogicPackage
+      stackable: true
+      stats:
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.HasSandevistan
+          value: 0    
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.HasKerenzikov
+          value: 0  
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+Character.sts_cct_cpz_01_enemy_security_ajax.archetypeData: Character.militech_enforcer2_shotgun2_tactician_mah_rare_inline4
+Character.sts_cct_cpz_01_enemy_security_shotgun.archetypeData: Character.militech_enforcer2_shotgun2_tactician_mah_rare_inline4
+Character.sts_cct_cpz_01_enemy_security.archetypeData: Character.militech_ranger2_ranged2_ajax_ma_inline4
+Character.sts_cct_cpz_01_enemy_security_officer.archetypeData: Character.militech_tech_grenadier2_omaha_ma_rare_inline0
+
+
+# Voodoo - briggitte
+Character.q110_vdb_elder_1:
+  rarity: NPCRarity.Normal
+  archetypeData: Character.voodooboys_netrunner2_netrunner2_lexington_ma_rare_inline0
+Character.q110_vdb_elder_2:
+  rarity: NPCRarity.Normal
+  archetypeData: Character.voodooboys_netrunner2_netrunner2_lexington_ma_rare_inline0
+Character.q110_vdb_elder_3:
+  rarity: NPCRarity.Normal
+  archetypeData: Character.voodooboys_netrunner2_netrunner2_lexington_ma_rare_inline0
+Character.q110_vdb_elder_4:
+  rarity: NPCRarity.Normal
+  archetypeData: Character.voodooboys_netrunner2_netrunner2_lexington_ma_rare_inline0
+Character.q110_vdb_elder_5:
+  rarity: NPCRarity.Normal
+  archetypeData: Character.voodooboys_netrunner2_netrunner2_lexington_ma_rare_inline0
+
+Character.Voodoo_Queen:
+  archetypeData: Character.voodooboys_netrunner2_netrunner2_lexington_ma_rare_inline0
+  statModifierGroups:
+    - NPCStatPreset.HighHealth
+    - Character.NPC_Base_Primary_Stat_ModGroup
+
+# Chimera
+
+
+
+BaseStatusEffect.CE_ChimeraPhase2Summon:
+  $type: StatusEffect
+  gameplayTags: ["Buff"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+Attacks.ChimeraGasCloud:
+  statusEffects: 
+    - Attacks.BaseBiotechExplosion_inline0
+
+# Oda
+
+Oda.Masked_inline0:
+  stats:
+    - !append
+      $type: ConstantStatModifier
+      modifierType: Multiplier
+      statType: BaseStats.CE_HasGorgon
+      value: 0   
+
+Weakspots.OdaMaskStats_inline0:
+  value: 0.5
+
+# Kurt
+Character.kurtz:
+  archetypeData: ArchetypeData.HeavyRangedT3
+
+# Max Tac
+Character.q305_maxtac_miniboss_mantis_ma:
+  archetypeData: ArchetypeData.FastMeleeT3
+
+# Artillery
+
+
+
+# Smasher
+
+Character.q113_smasher_arasaka_masamune:
+  rarity: NPCRarity.Rare

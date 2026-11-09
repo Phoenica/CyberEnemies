@@ -1,0 +1,147 @@
+Ability.CE_PainEditor:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_painEditor"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_painEditor"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasPainEditor
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.ImpactDamageThreshold
+          value: 0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.StaggerDamageThreshold
+          value: 0
+
+
+
+UIIcon.Ability.CE_PainEditor:
+  $type: UIIcon
+  atlasPartName: ICONS_HasBoostedCortex
+  atlasResourcePath: base\gameplay\gui\common\icons\abilities_tooltips_icons.inkatlas
+
+CE_PainEditorAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_PainEditor
+
+
+BaseStats.CE_HasPainEditor:
+  $type: Stat
+  enumName: CE_HasPainEditor
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+BaseStatusEffect.CE_PainEditorCooldownDurationStat:
+  $type: ConstantStatModifier
+  modifierType: Additive
+  statType: BaseStats.MaxDuration
+  value: 55
+
+BaseStatusEffect.CE_PainEditorCooldown:
+  $type: StatusEffect
+  gameplayTags: ["Debuff", "CE_PainEditorCooldown"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - BaseStatusEffect.CE_PainEditorCooldownDurationStat
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+BaseStatusEffect.CE_PainEditorEffectDurationStat:
+  $type: ConstantStatModifier
+  modifierType: Additive
+  statType: BaseStats.MaxDuration
+  value: 14
+
+BaseStatusEffect.CE_PainEditorEffect:
+  $type: StatusEffect
+  gameplayTags: ["Buff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - BaseStatusEffect.CE_PainEditorEffectDurationStat
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  packages:
+    - $type: GameplayLogicPackage
+      stats:
+        - Character.BossNoWound_inline0
+        - Character.BossNoWound_inline1
+        - Character.BossNoWound_inline2
+        - Character.BossNoWound_inline3
+        - Character.BossNoWound_inline4
+        - Character.BossNoDismemberment_inline0
+        - Character.BossNoDismemberment_inline1
+        - Character.BossNoDismemberment_inline2
+        - Character.BossNoDismemberment_inline3
+        - Character.BossNoDismemberment_inline4
+        - Ability.HasPoisonImmunity_inline1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.IsReckless
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.HasStunImmunity
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CounterattackGuardbreakImmunity
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.StaggerDamageThresholdInCover
+          value: -1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.StaggerDamageThresholdImpulse
+          value: -1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.ImpactDamageThresholdInCover
+          value: -1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.ImpactDamageThresholdImpulse
+          value: -1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.MaxPercentDamageTakenPerHit
+          value: 10    
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  uiData: 
+    $type: StatusEffectUIData
+    iconPath: armor_boost
+    priority: 1

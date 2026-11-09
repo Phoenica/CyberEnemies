@@ -1,0 +1,38 @@
+version: 1.0.0
+sfx:
+  medusa1: 
+    file: Cassiopeia_Original_R_1.ogg
+    settings:
+      volume: 1.0
+  medusa2: 
+    file: Cassiopeia_Original_R_5.ogg
+    settings:
+      volume: 1.0
+  banshee1: 
+    file: banshee.mp3
+    settings:
+      volume: 2.0
+  banshee2: 
+    file: banshee.mp3
+    settings:
+      volume: 1.25
+  banshee3: 
+    file: banshee.mp3
+    settings:
+      volume: 1.0
+  banshee4: 
+    file: banshee.mp3
+    settings:
+      volume: 0.75
+  banshee5: 
+    file: banshee.mp3
+    settings:
+      volume: 0.5
+  banshee6: 
+    file: banshee.mp3
+    settings:
+      volume: 0.3
+  ce_sonido: 
+    file: sonido.mp3
+    settings:
+      volume: 3.0

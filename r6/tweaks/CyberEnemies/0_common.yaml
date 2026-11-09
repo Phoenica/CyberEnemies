@@ -1,0 +1,31 @@
+BaseStats.IMSABonusAccuracy:
+  $type: Stat
+  enumName: IMSABonusAccuracy
+  flags: [ ]
+  decimalPlaces: 2
+  max: 1
+  min: -1
+
+BaseStats.IMSACanSeeUnseen:
+  $type: Stat
+  enumName: IMSACanSeeUnseen
+  flags: [ ]
+  decimalPlaces: 2
+  max: 1
+  min: 0
+
+BaseStats.IMSA_AWACS:
+  $type: Stat
+  enumName: IMSA_AWACS
+  flags: [ ]
+  decimalPlaces: 2
+  max: 1
+  min: 0
+
+BaseStats.IMSAPlayerTagged:
+  $type: Stat
+  enumName: IMSAPlayerTagged
+  flags: [ ]
+  decimalPlaces: 2
+  max: 1
+  min: 0

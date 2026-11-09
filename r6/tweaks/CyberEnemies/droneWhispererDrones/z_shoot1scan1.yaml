@@ -1,0 +1,31 @@
+Ability.CE_HasShootHasScanDrones:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_combatDrones"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_combatDrones"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasCombatDrones
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasCombatDronesS1
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasScannerDronesS1
+          value: 1
+
+
+UIIcon.Ability.CE_HasShootHasScanDrones:
+  $type: UIIcon
+  atlasPartName: ICONS_Carrier
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CE_HasShootHasScanDronesAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_HasShootHasScanDrones

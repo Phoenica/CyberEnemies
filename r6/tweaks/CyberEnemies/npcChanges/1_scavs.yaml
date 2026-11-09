@@ -1,0 +1,47 @@
+
+CEScavEq2:
+  $type: NPCEquipmentGroup
+  equipmentItems: 
+    - $type: NPCEquipmentItemPool
+      pool:
+        - $type: NPCEquipmentItemsPoolEntry
+          weight: 1.0
+          items:
+            - $type: NPCEquipmentItem
+              equipSlot: AttachmentSlots.WeaponRight
+              item: Items.Preset_Crowbar_Default
+
+Character.bou_scavenger_android_android2_pulsar_ma:
+  secondaryEquipment: Empty
+  primaryEquipment: CEScavEq2
+
+Character.con_scavenger_android_android2_pulsar_ma:
+  secondaryEquipment: Empty
+  primaryEquipment: CEScavEq2
+
+Character.high_scavenger_android_android2_pulsar_ma:
+  secondaryEquipment: Empty
+  primaryEquipment: CEScavEq2
+  
+Character.hpark_scavenger_android_android2_pulsar_ma:
+  secondaryEquipment: Empty
+  primaryEquipment: CEScavEq2
+
+Character.mon_scavenger_android_android2_pulsar_ma:
+  secondaryEquipment: Empty
+  primaryEquipment: CEScavEq2
+
+Character.nid_scavenger_android_android2_pulsar_ma:
+  secondaryEquipment: Empty
+  primaryEquipment: CEScavEq2
+  
+Character.sta_scavenger_android_android2_pulsar_ma:
+  secondaryEquipment: Empty
+  primaryEquipment: CEScavEq2
+
+Character.scavenger_android_android2_pulsar_ma:
+  secondaryEquipment: Empty
+  primaryEquipment: CEScavEq2
+
+
+  

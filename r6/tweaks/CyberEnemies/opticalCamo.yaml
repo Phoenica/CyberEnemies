@@ -1,0 +1,19 @@
+OpticalCamoCEText:
+  $type: GameplayLogicPackage
+  UIData:
+    $type: GameplayLogicPackageUIData
+    localizedDescription: LocKey#cyberEnemies_cyberware_camo_radar
+
+Items.AdvancedOpticalCamo$(tier):
+  $instances:
+    - { tier: Uncommon }
+    - { tier: UncommonPlus }
+    - { tier: Rare }
+    - { tier: RarePlus }
+    - { tier: Epic }
+    - { tier: EpicPlus }
+    - { tier: Legendary }
+    - { tier: LegendaryPlus }
+    - { tier: LegendaryPlusPlus }
+  OnEquip:
+    - !prepend OpticalCamoCEText

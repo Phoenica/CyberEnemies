@@ -1,0 +1,308 @@
+# Attacks.BiotechGrenade
+
+BaseStats.CE_HasPoisonTank:
+  $type: Stat
+  enumName: CE_HasPoisonTank
+  flags: [ ]
+  decimalPlaces: 2
+  max: 1
+  min: 0
+
+BaseStatusEffect.CE_Poisoned:
+  $base: BaseStatusEffect.Poisoned
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 8
+  packages:
+    - BaseStatusEffect.Poisoned_inline4
+    - BaseStatusEffect.Poisoned_inline5
+    - $type: GameplayLogicPackage
+      effectors:
+        - $type: ApplyStatGroupEffector
+          applicationTarget: Weapon
+          effectorClassName: ApplyStatGroupEffector
+          prereqRecord: Prereqs.MeleeWeaponHeldPrereq
+          removeWithEffector: true
+          statGroup: 
+            $type: StatModifierGroup
+            statModsLimit: -1
+            statModifiers:
+              - $type: ConstantStatModifier
+                modifierType: Multiplier
+                statType: BaseStats.AttackSpeed
+                value: 0.5
+      stats:
+        - BaseStatusEffect.Poisoned_inline12
+        - BaseStatusEffect.Poisoned_inline13
+        - BaseStatusEffect.Poisoned_inline14
+        - BaseStatusEffect.Poisoned_inline15
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.MaxSpeed
+          value: 0.6
+
+Attacks.CE_PoisonTank:
+  $base: Attacks.BaseBiotechExplosion
+  statusEffects:
+    - $type: StatusEffectAttackData
+      applyImmediately: true
+      stacksToApply: 1.0
+      statusEffect: BaseStatusEffect.CE_Poisoned
+
+
+Ability.CEPoisonTank:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_gasTank"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_gasTank"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.CE_HasPoisonTank
+        value: 1    
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.ChemicalResistance
+        value: 50   
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.ThermalResistance
+        value: -50  
+    effectors:
+      - $type: TriggerAttackEffector
+        effectorClassName: TriggerAttackByChanceEffector
+        selfStatusEffect: BaseStatusEffect.CEPoisonTankCooldown
+        attackRecord: Attacks.BaseBiotechExplosion
+        chance: 0.75
+        prereqRecord:
+          $type: MultiPrereq  
+          aggregationType: AND
+          prereqClassName: gameMultiPrereq
+          nestedPrereqs: 
+            - $type: StatusEffectPrereq
+              invert: true
+              objectToCheck: None
+              prereqClassName: StatusEffectPrereq
+              statusEffect: GameplayRestriction.FistFight
+              tagToCheck: None
+            - $type: StatusEffectPrereq
+              invert: true
+              objectToCheck: None
+              prereqClassName: StatusEffectPrereq
+              statusEffect: BaseStatusEffect.CEPoisonTankCooldown
+              tagToCheck: None
+            - $type: StatusEffectPrereq
+              invert: true
+              objectToCheck: None
+              prereqClassName: StatusEffectPrereq
+              statusEffect: BaseStatusEffect.CEPoisonTankDisabled
+              tagToCheck: None              
+            - $type: HitPrereq
+              callbackType: HitReceived
+              ignoreSelfInflictedPressureWave: true
+              isSynchronous: true
+              pipelineStage: Process
+              pipelineType: Damage
+              prereqClassName: HitReceivedPrereq
+              conditions: 
+                - $type: HitPrereqCondition
+                  invert: true
+                  type: Prereqs.HitFlag
+                  hitFlag: DealNoDamage
+                - $type: HitPrereqCondition
+                  type: Prereqs.InstigatorType
+                  instigatorType: Puppet
+                - $type: HitPrereqCondition
+                  type: Prereqs.WeaponType
+                  weaponType: Melee    
+      - $type: TriggerAttackEffector
+        effectorClassName: TriggerAttackByChanceEffector
+        selfStatusEffect: BaseStatusEffect.CEPoisonTankCooldown
+        attackRecord: Attacks.BaseBiotechExplosion
+        chance: 0.02
+        prereqRecord:
+          $type: MultiPrereq  
+          aggregationType: AND
+          prereqClassName: gameMultiPrereq
+          nestedPrereqs: 
+            - $type: StatusEffectPrereq
+              invert: true
+              objectToCheck: None
+              prereqClassName: StatusEffectPrereq
+              statusEffect: GameplayRestriction.FistFight
+              tagToCheck: None
+            - $type: StatusEffectPrereq
+              invert: true
+              objectToCheck: None
+              prereqClassName: StatusEffectPrereq
+              statusEffect: BaseStatusEffect.CEPoisonTankCooldown
+              tagToCheck: None
+            - $type: StatusEffectPrereq
+              invert: true
+              objectToCheck: None
+              prereqClassName: StatusEffectPrereq
+              statusEffect: BaseStatusEffect.CEPoisonTankDisabled
+              tagToCheck: None              
+            - $type: HitPrereq
+              callbackType: HitReceived
+              ignoreSelfInflictedPressureWave: true
+              isSynchronous: true
+              pipelineStage: Process
+              pipelineType: Damage
+              prereqClassName: HitReceivedPrereq
+              conditions: 
+                - $type: HitPrereqCondition
+                  invert: true
+                  type: Prereqs.HitFlag
+                  hitFlag: DealNoDamage
+                - $type: HitPrereqCondition
+                  type: Prereqs.InstigatorType
+                  instigatorType: Puppet
+                - $type: HitPrereqCondition
+                  type: Prereqs.WeaponType
+                  weaponType: Ranged  
+
+
+BaseStatusEffect.CEPoisonTankDisabled:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+    
+BaseStatusEffect.CEStartedFightWithPlayer:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+BaseStatusEffect.CEPoisonTankCooldownStat:
+  $type: ConstantStatModifier
+  modifierType: Additive
+  statType: BaseStats.MaxDuration
+  value: 5
+
+BaseStatusEffect.CEPoisonTankCooldown:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - BaseStatusEffect.CEPoisonTankCooldownStat
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+
+
+UIIcon.Ability.CEPoisonTank:
+  $type: UIIcon
+  atlasPartName: ICONS_HasPoisonTank
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CEKPoisonTankAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CEPoisonTank
+
+# Magie
+
+BaseStats.CE_NeurotoxinCounter:
+  $type: Stat
+  enumName: CE_NeurotoxinCounter
+  flags: [ ]
+  decimalPlaces: 1
+  max: 100
+  min: 0
+
+
+BaseStatusEffect.NeuroToxin:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 1.2
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  packages:
+      - $type: GameplayLogicPackage
+        stackable: true
+        stats: 
+          - $type: ConstantStatModifier
+            modifierType: AdditiveMultiplier
+            statType: BaseStats.MaxSpeed
+            value: -0.01
+          - $type: ConstantStatModifier
+            modifierType: AdditiveMultiplier
+            statType: BaseStats.JumpHeight
+            value: -0.01   
+          - $type: ConstantStatModifier
+            modifierType: AdditiveMultiplier
+            statType: BaseStats.AttackSpeed
+            value: -0.005   
+          - $type: ConstantStatModifier
+            modifierType: Additive
+            statType: BaseStats.CE_NeurotoxinCounter
+            value: 1          
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 100
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  uiData: 
+    $type: StatusEffectUIData
+    displayName: LocKey#cyberEnemies_abilityIconName_neuroToxin
+    priority: 0
+    iconPath: poisoned

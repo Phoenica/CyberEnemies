@@ -1,0 +1,27 @@
+
+
+BaseStatusEffect.CE_BombDisabled:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+BaseStats.CE_IsABomb:
+  $type: Stat
+  enumName: CE_IsABomb
+  flags: [ ]
+  decimalPlaces: 2
+  max: 1
+  min: 0

@@ -1,0 +1,180 @@
+
+BaseStats.CE_HasRadar:
+  $type: Stat
+  enumName: CE_HasRadar
+  flags: [ ]
+  decimalPlaces: 2
+  max: 1
+  min: 0
+
+Ability.CE_HasRadar:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_radar"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_radar"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.CE_HasRadar
+        value: 1    
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.ElectricResistance
+        value: -25
+
+CE_RadarAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_HasRadar
+
+UIIcon.Ability.CE_HasRadar:
+  $type: UIIcon
+  atlasPartName: ICONS_Radar
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+
+# AWACS
+
+BaseStats.CE_HasAWACS:
+  $type: Stat
+  enumName: CE_HasAWACS
+  flags: [ ]
+  decimalPlaces: 2
+  max: 1
+  min: 0
+
+Ability.CE_HasAWACS:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_awacs"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_awacs"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.CE_HasAWACS
+        value: 1    
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.CE_HasRadar
+        value: 1
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.ElectricResistance
+        value: -25
+
+CE_AWACSAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_HasAWACS
+
+UIIcon.Ability.CE_HasAWACS:
+  $type: UIIcon
+  atlasPartName: ICONS_Radar
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+BaseStatusEffect.CEAWACSDebuff:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 5
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  packages:
+    - $type: GameplayLogicPackage
+      stats:  
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.SmartTargetingDisruptionProbability
+          value: 0.0
+
+BaseStatusEffect.CEAWACSTag:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 2
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  packages:
+    - $type: GameplayLogicPackage
+      stats:  
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.IMSAPlayerTagged
+          value: 1.0
+
+BaseStatusEffect.CEAWACSBuff:
+  $type: StatusEffect
+  gameplayTags: ["Buff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 5
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  packages:
+    - $type: GameplayLogicPackage
+      stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.IMSA_AWACS
+          value: 1.0
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.IMSABonusAccuracy
+          value: 0.2     
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.SmartTargetingDisruptionProbability
+          value: 0.5
+
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+

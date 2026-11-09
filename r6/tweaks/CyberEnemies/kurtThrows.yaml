@@ -1,0 +1,101 @@
+BaseStatusEffect.KurtSlow:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 25.0
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  packages:
+    - $type: GameplayLogicPackage
+      stats:
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.MaxSpeed
+          value: 0.6
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.JumpHeight
+          value: 0.5    
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.CanSprint
+          value: 0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.HasDodge
+          value: 0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.HasDodgeAir
+          value: 0
+
+# 
+
+BaseStatusEffect.KurtDisarm:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 25.0
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  packages:
+    - $type: GameplayLogicPackage
+      effectors:
+        - $type: ApplyStatGroupEffector
+          applicationTarget: Weapon
+          effectorClassName: ApplyStatGroupEffector
+          prereqRecord: Prereqs.MeleeWeaponHeldPrereq
+          removeWithEffector: true
+          statGroup: 
+            $type: StatModifierGroup
+            statModsLimit: -1
+            statModifiers:
+              - $type: ConstantStatModifier
+                modifierType: Multiplier
+                statType: BaseStats.AttackSpeed
+                value: 0.5
+        - $type: ApplyStatGroupEffector
+          applicationTarget: Weapon
+          effectorClassName: ApplyStatGroupEffector
+          prereqRecord: Prereqs.AlwaysTruePrereq
+          removeWithEffector: true
+          statGroup: 
+            $type: StatModifierGroup
+            statModsLimit: -1
+            statModifiers:
+              - $type: ConstantStatModifier
+                modifierType: Multiplier
+                statType: BaseStats.RecoilKickMax
+                value: 2 
+              - $type: ConstantStatModifier
+                modifierType: Multiplier
+                statType: BaseStats.RecoilKickMin
+                value: 2 
+              - $type: ConstantStatModifier
+                modifierType: Additive
+                statType: BaseStats.ReloadTimeBonus
+                value: 1.0
+      stats:
+        - $type: ConstantStatModifier
+          modifierType: AdditiveMultiplier
+          statType: BaseStats.BaseMeleeAttackStaminaCost
+          value: 1.0
+          

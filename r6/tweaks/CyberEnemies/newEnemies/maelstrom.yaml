@@ -1,0 +1,18 @@
+Character.nid_maelstrom_android_android2_pulsar_ma:
+  appearanceName: gang__android_ma_wraith_droid__lvl1_05
+  entityTemplatePath: ep1\characters\entities\gang\gang__ep1_android_ma.ent
+
+# Character.EX_nid_maelstrom_android_android2_pulsar_ma:
+#   $base: Character.nid_maelstrom_android_android2_pulsar_ma
+#   appearanceName: gang__android_ma_wraith_droid__lvl1_05
+#   entityTemplatePath: ep1\characters\entities\gang\gang__ep1_android_ma.ent
+#   tags:
+#     - !append CEModPuppet
+#     - !append CEModExtraEnemies
+
+
+# Character.EX_maelstrom_techie_grenadier2_lexington_m:
+#   $base: Character.maelstrom_techie_grenadier2_lexington_m
+#   tags:
+#     - !append CEModPuppet
+#     - !append CEModExtraEnemies

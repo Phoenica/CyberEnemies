@@ -1,0 +1,31 @@
+Ability.CE_Synchroniser:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_synchronizers"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_synchronizers"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_Synchroniser
+          value: 1
+
+
+UIIcon.Ability.CE_Synchroniser:
+  $type: UIIcon
+  atlasPartName: ICONS_CanBuffSturdinessQuickHack
+  atlasResourcePath: base\gameplay\gui\common\icons\abilities_tooltips_icons.inkatlas
+
+CE_SynchroniserAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_Synchroniser
+
+BaseStats.CE_Synchroniser:
+  $type: Stat
+  enumName: CE_Synchroniser
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0

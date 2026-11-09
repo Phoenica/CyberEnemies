@@ -1,0 +1,19 @@
+CE.BossHPScaling:
+  $type: ConstantStatModifier
+  modifierType: Multiplier
+  statType: BaseStats.Health
+  value: 1.0
+
+
+Ability.CE_BossHPScaling:
+  $type: GameplayAbility
+  showInCodex: false
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+      - CE.BossHPScaling
+
+CE_BossHPScalingAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_BossHPScaling

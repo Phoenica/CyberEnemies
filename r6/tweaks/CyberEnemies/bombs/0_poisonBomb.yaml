@@ -1,0 +1,48 @@
+# Attacks.BiotechGrenade
+
+
+Ability.CE_PoisonBomb:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_bomb"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_bomb"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.CE_IsABomb
+        value: 1    
+    effectors:   
+      - $type: TriggerAttackEffector
+        effectorClassName: TriggerAttackByChanceEffector
+        selfStatusEffect: BaseStatusEffect.CE_BombDisabled
+        attackRecord: Attacks.CE_PoisonTank
+        chance: 1.0
+        prereqRecord:
+          $type: MultiPrereq  
+          aggregationType: AND
+          prereqClassName: gameMultiPrereq
+          nestedPrereqs: 
+            - $type: IPrereq
+              prereqClassName: HighLevelNPCStatePrereq
+              isInState: true
+              stateName: Dead
+            - $type: StatusEffectPrereq
+              invert: true
+              objectToCheck: None
+              prereqClassName: StatusEffectPrereq
+              statusEffect: BaseStatusEffect.CE_BombDisabled
+              tagToCheck: None
+        
+
+
+UIIcon.Ability.CE_PoisonBomb:
+  $type: UIIcon
+  atlasPartName: ICONS_HasHealthMonitorBomb
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CE_PoisonBombAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_PoisonBomb

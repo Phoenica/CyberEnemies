@@ -1,0 +1,28 @@
+
+
+CE_CanCauseBurnAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CanCauseBurn
+
+CE_CanCauseElectrocutionAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CanCauseElectrocution
+
+CE_HealthBomb:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.HasHealthMonitorBomb
+
+CE_InvisGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CanUseOpticalCamo
+
+Ability.HasBurningImmunity_inline0:
+  stats:
+    - $type: ConstantStatModifier
+      modifierType: Additive
+      statType: BaseStats.ThermalResistance
+      value: 100

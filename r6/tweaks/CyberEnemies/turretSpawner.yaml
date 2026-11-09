@@ -1,0 +1,50 @@
+Ability.CECanSpawnTurret:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_turretSpawner"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_scanDetector"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_CanSpawnTurret
+          value: 1
+
+
+UIIcon.Ability.CECanSpawnTurret:
+  $type: UIIcon
+  atlasPartName: ICONS_HasSmokeTank
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CECanSpawnTurretAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CECanSpawnTurret
+
+
+BaseStats.CE_CanSpawnTurret:
+  $type: Stat
+  enumName: CE_CanSpawnTurret
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+BaseStatusEffect.CETurretSpawningDisabled:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true

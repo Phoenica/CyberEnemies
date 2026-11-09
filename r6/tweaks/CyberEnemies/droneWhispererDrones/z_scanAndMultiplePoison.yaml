@@ -1,0 +1,64 @@
+BaseStats.CE_HasMultiPoisonAndRadar:
+  $type: Stat
+  enumName: CE_HasMultiPoisonAndRadar
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+Ability.CE_HasMultiPoisonAndRadar:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_combatDrones"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_combatDrones"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasCombatDrones
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasMultiPoisonAndRadar
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasScannerDronesS1
+          value: 1
+
+
+UIIcon.Ability.CE_HasMultiPoisonAndRadar:
+  $type: UIIcon
+  atlasPartName: ICONS_Carrier
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CE_HasMultiPoisonAndRadarAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_HasMultiPoisonAndRadar
+
+BaseStatusEffect.CE_HasPoisonBombDroneMultipleCooldown:
+  $type: StatusEffect
+  gameplayTags: ["Debuff", "CE_DroneSpawnerCD"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 20
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true

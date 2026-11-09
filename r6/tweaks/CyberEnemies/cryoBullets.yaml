@@ -1,0 +1,88 @@
+Ability.CECryoBullets:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_cryoRounds"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_cryoRounds"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    effectors:
+      - $type: Effector
+        effectorClassName: CyberEnemies.CryoBullets.BulletsEffector
+        prereqRecord: 
+          $type: HitPrereq
+          callbackType: HitTriggered
+          ignoreSelfInflictedPressureWave: true
+          isSynchronous: true
+          pipelineStage: Process
+          pipelineType: Damage
+          prereqClassName: HitTriggeredPrereq
+          conditions:
+            - $type: HitPrereqCondition
+              type: Prereqs.WeaponType
+              weaponType: Ranged    
+
+BaseStatusEffect.CEChilled:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 0.2
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  packages:
+    - $type: GameplayLogicPackage
+      stackable: true
+      effectors:
+        - $type: ApplyStatGroupEffector
+          applicationTarget: Weapon
+          effectorClassName: ApplyStatGroupEffector
+          prereqRecord: Prereqs.AlwaysTruePrereq
+          removeWithEffector: true
+          statGroup: 
+            $type: StatModifierGroup
+            statModsLimit: -1
+            statModifiers:
+              - $type: ConstantStatModifier
+                modifierType: AdditiveMultiplier
+                statType: BaseStats.AttackSpeed
+                value: -0.005
+      stats: 
+        - $type: ConstantStatModifier
+          modifierType: AdditiveMultiplier
+          statType: BaseStats.MaxSpeed
+          value: -0.009
+        - $type: ConstantStatModifier
+          modifierType: AdditiveMultiplier
+          statType: BaseStats.JumpHeight
+          value: -0.008         
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 100
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  uiData: 
+    $type: StatusEffectUIData
+    displayName: LocKey#cyberEnemies_effectName_chilled
+    priority: 0
+    iconPath: ColdBlood
+
+UIIcon.Ability.CECryoBullets:
+  $type: UIIcon
+  atlasPartName: ICONS_HasIceBullets
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CECryoBulletsAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CECryoBullets

@@ -1,0 +1,105 @@
+
+
+Ability.CE_PowerPunch:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_powerPunch"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_powerPunch"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    effectors:
+      - $type: Effector 
+        effectorClassName: CyberEnemies.PowerPunch.PowerPunchEffector
+        prereqRecord:
+          $type: HitPrereq
+          callbackType: HitTriggered
+          ignoreSelfInflictedPressureWave: true
+          isSynchronous: true
+          pipelineStage: PostProcess
+          pipelineType: Damage
+          prereqClassName: HitTriggeredPrereq
+          conditions:
+            - $type: HitPrereqCondition
+              type: Prereqs.WeaponType
+              weaponType: Melee   
+
+CE_PowerPunchAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_PowerPunch
+
+UIIcon.Ability.CE_PowerPunch:
+  $type: UIIcon
+  atlasPartName: Solo
+  atlasResourcePath: base\gameplay\gui\common\icons\mappin_icons.inkatlas
+
+
+BaseStatusEffect.CE_PowerPunch_Knockdown:
+  $base: BaseStatusEffect.Knockdown
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 1.25
+
+BaseStatusEffect.CE_PowerPunch_Stun:
+  $base: BaseStatusEffect.Stun
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 0.1
+
+BaseStatusEffect.CE_PowerPunch_StunLong:
+  $base: BaseStatusEffect.Stun
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 0.25
+        
+# Kurt
+
+Ability.CE_PowerPunchKurt:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_powerPunch"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_powerPunch"
+  showInCodex: false
+  abilityPackage:
+    $type: GameplayLogicPackage
+    effectors:
+      - $type: Effector 
+        effectorClassName: CyberEnemies.PowerPunch.PowerPunchKurtEffector
+        prereqRecord:
+          $type: HitPrereq
+          callbackType: HitTriggered
+          ignoreSelfInflictedPressureWave: true
+          isSynchronous: true
+          pipelineStage: PostProcess
+          pipelineType: Damage
+          prereqClassName: HitTriggeredPrereq
+          conditions:
+            - $type: HitPrereqCondition
+              type: Prereqs.WeaponType
+              weaponType: Melee   
+
+
+
+CE_PowerPunchAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_PowerPunch
+
+UIIcon.Ability.CE_PowerPunch:
+  $type: UIIcon
+  atlasPartName: Solo
+  atlasResourcePath: base\gameplay\gui\common\icons\mappin_icons.inkatlas

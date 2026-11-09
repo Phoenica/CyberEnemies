@@ -1,0 +1,3 @@
+Character.CE_OdaHologram:
+  $base: Character.sts_ep1_08_kgb_boss_hologram
+  scannerModulePreset: ScanningNPCPresets.ScannerPreset_NPCNone

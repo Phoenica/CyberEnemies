@@ -1,0 +1,64 @@
+BaseStats.CE_HasAWACSWyvern:
+  $type: Stat
+  enumName: CE_HasAWACSWyvern
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+Ability.CE_HasAWACSWyvern:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_combatDrones"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_combatDrones"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasCombatDrones
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasAWACSWyvern
+          value: 1
+
+
+UIIcon.Ability.CE_HasAWACSWyvern:
+  $type: UIIcon
+  atlasPartName: ICONS_Carrier
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CE_HasAWACSWyvernAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_HasAWACSWyvern
+
+
+BaseStatusEffect.CE_HasAWACSWyvernCooldown:
+  $type: StatusEffect
+  gameplayTags: ["Debuff", "CE_DroneSpawnerCD"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+Character.CE_WyvernAWACS:
+  $base: Character.militech_drone_wyvern_hard
+  scannerModulePreset: ScanningNPCPresets.ScannerPreset_NPCNoAffiliation
+  dropsControlledLoot: false
+  abilities:
+    - !append Ability.CE_HasAWACS
+  tags:
+    - !append CEModPuppet
+    - !append CEModRoboScanner

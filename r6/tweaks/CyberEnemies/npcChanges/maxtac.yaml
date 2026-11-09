@@ -1,0 +1,6 @@
+Character.q305_maxtac_droid:
+  rarity: NPCRarity.Rare
+  abilities:
+    - !append Ability.CanSprint
+
+

@@ -1,0 +1,19 @@
+Character.arr_valentinos_grunt2_melee2_knife_ma.rarity: NPCRarity.Normal
+Character.arr_valentinos_grunt2_melee2_knife_wa.rarity: NPCRarity.Normal
+Character.rey_valentinos_grunt2_melee2_knife_wa.rarity: NPCRarity.Normal
+Character.spr_valentinos_grunt2_melee2_knife_ma.rarity: NPCRarity.Normal
+Character.spr_valentinos_grunt2_melee2_knife_wa.rarity: NPCRarity.Normal
+Character.valentinos_grunt2_melee2_knife_ma.rarity: NPCRarity.Normal
+Character.valentinos_grunt2_melee2_knife_wa.rarity: NPCRarity.Normal
+
+Character.gle_valentinos_grunt2_melee2_machete_ma.rarity: NPCRarity.Normal
+Character.gle_valentinos_grunt2_melee2_machete_wa.rarity: NPCRarity.Normal
+Character.rey_valentinos_grunt2_melee2_machete_ma.rarity: NPCRarity.Normal
+Character.rey_valentinos_grunt2_melee2_machete_wa.rarity: NPCRarity.Normal
+Character.spr_valentinos_grunt2_melee2_machete_ma.rarity: NPCRarity.Normal
+Character.valentinos_grunt2_melee2_machete_ma.rarity: NPCRarity.Normal
+Character.valentinos_grunt2_melee2_machete_wa.rarity: NPCRarity.Normal
+
+# Miguel guns
+Character.ma_hey_rey_06_outpost_miniboss_inline1.item: Items.Preset_Nue_RapidFire
+Character.ma_hey_rey_06_outpost_miniboss_inline2.item: Items.Preset_Nue2_RapidFire

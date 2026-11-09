@@ -1,0 +1,31 @@
+Character.nid_scavenger_android_android2_pulsar_ma:
+  abilities:
+    - !append Ability.CanBlock
+    - !append Ability.CanGuardBreak
+    - !append Ability.HasDodge
+  displayName: LocKey#cyberEnemies_enemyName_scavBot
+  appearanceName: gang__android_ma_scavenger_droid__lvl2_03
+  entityTemplatePath: ep1\characters\entities\gang\gang__ep1_android_ma.ent
+  canHaveGenericTalk: false
+  archetypeData: ArchetypeData.AndroidMeleeT1
+  primaryEquipment: CEScavEq2
+  secondaryEquipment: empty
+  characterType: NPCType.Human
+
+Character.CE_Scav_ButcherRobot: 
+  $base: Character.high_scavenger_android_android2_pulsar_ma
+  abilities:
+    - !append Ability.CanBlock
+    - !append Ability.CanGuardBreak
+    - !append Ability.HasDodge
+  displayName: LocKey#cyberEnemies_enemyName_scavBot
+  appearanceName: gang__android_ma_scavenger_droid__lvl2_03
+  entityTemplatePath: ep1\characters\entities\gang\gang__ep1_android_ma.ent
+  canHaveGenericTalk: false
+  archetypeData: ArchetypeData.AndroidMeleeT1
+  primaryEquipment: CEScavEq2
+  secondaryEquipment: empty
+  characterType: NPCType.Human
+
+
+

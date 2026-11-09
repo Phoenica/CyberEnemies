@@ -1,0 +1,86 @@
+Ability.CEPhoenixProtocol:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_phoenix"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_phoenix"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasPhoenixProtocol
+          value: 1
+
+
+UIIcon.Ability.CEPhoenixProtocol:
+  $type: UIIcon
+  atlasPartName: ICONS_PhoenixProtocol
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CEPhoenixProtocolAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CEPhoenixProtocol
+
+
+BaseStats.CE_HasPhoenixProtocol:
+  $type: Stat
+  enumName: CE_HasPhoenixProtocol
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+BaseStatusEffect.CEPhoenixProtocolInvincible:
+  $type: StatusEffect
+  gameplayTags: ["Debuff", "CEPhoenixProtocolInvincible"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 0.5
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+BaseStatusEffect.CEPhoenixProtocolMainEffect:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 10
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  uiData: 
+    $type: StatusEffectUIData
+    iconPath: armor_boost
+    priority: 5

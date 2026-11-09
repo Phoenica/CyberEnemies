@@ -1,0 +1,73 @@
+Ability.CEThreatDetector:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_scanDetector"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_scanDetector"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasThreatDetector
+          value: 1
+
+
+UIIcon.Ability.CEThreatDetector:
+  $type: UIIcon
+  atlasPartName: ICONS_HasMedusa
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CEThreatDetectorAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CEThreatDetector
+
+
+BaseStats.CE_HasThreatDetector:
+  $type: Stat
+  enumName: CE_HasThreatDetector
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+BaseStats.CE_ThreatDetectorStack:
+  $type: Stat
+  enumName: CE_ThreatDetectorStack
+  flags: [ ]
+  decimalPlaces: 3
+  max: 1
+  min: 0
+
+BaseStatusEffect.CE_ThreatDetectorStack:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  packages:
+    - $type: GameplayLogicPackage
+      stackable: true
+      stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_ThreatDetectorStack
+          value: 1     
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 3.0
+  isAffectedByTimeDilationNPC: false
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 3
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true

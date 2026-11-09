@@ -1,0 +1,153 @@
+# Smoke2
+BaseStatusEffect.SmokeBomb2:
+  $base: BaseStatusEffect.SmokeBomb
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 1.25
+
+Attacks.SmokeExplosion2_inline0:
+  $base: Attacks.SmokeExplosion_inline0
+  statusEffect: BaseStatusEffect.SmokeBomb2
+
+Attacks.OdaSmokeBomb2:
+  $base: Attacks.OdaSmokeBomb
+  statusEffects: 
+    - Attacks.SmokeExplosion2_inline0
+
+
+
+
+Ability.CESmokeTank:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_smokeTank"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_smokeTank"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    effectors:
+      - $type: TriggerAttackEffector
+        effectorClassName: TriggerAttackByChanceEffector
+        selfStatusEffect: BaseStatusEffect.CESmokeTankCooldown
+        attackRecord: Attacks.BaseEMPExplosion
+        chance: 1.0
+        prereqRecord:
+          $type: MultiPrereq  
+          aggregationType: AND
+          prereqClassName: gameMultiPrereq
+          nestedPrereqs: 
+            - $type: StatusEffectPrereq
+              invert: true
+              objectToCheck: None
+              prereqClassName: StatusEffectPrereq
+              statusEffect: GameplayRestriction.FistFight
+              tagToCheck: None
+            - $type: StatusEffectPrereq
+              invert: true
+              objectToCheck: None
+              prereqClassName: StatusEffectPrereq
+              statusEffect: BaseStatusEffect.CESmokeTankCooldown
+              tagToCheck: None        
+            - $type: HitPrereq
+              callbackType: HitReceived
+              ignoreSelfInflictedPressureWave: true
+              isSynchronous: true
+              pipelineStage: Process
+              pipelineType: Damage
+              prereqClassName: HitReceivedPrereq
+              conditions: 
+                - $type: HitPrereqCondition
+                  invert: true
+                  type: Prereqs.HitFlag
+                  hitFlag: DealNoDamage
+                - $type: HitPrereqCondition
+                  type: Prereqs.InstigatorType
+                  instigatorType: Puppet
+                - $type: HitPrereqCondition
+                  type: Prereqs.WeaponType
+                  weaponType: Melee        
+      - $type: TriggerAttackEffector
+        effectorClassName: TriggerAttackByChanceEffector
+        selfStatusEffect: BaseStatusEffect.CESmokeTankCooldown
+        attackRecord: Attacks.OdaSmokeBomb2
+        chance: 1.0
+        prereqRecord:
+          $type: MultiPrereq  
+          aggregationType: AND
+          prereqClassName: gameMultiPrereq
+          nestedPrereqs: 
+            - $type: StatusEffectPrereq
+              invert: true
+              objectToCheck: None
+              prereqClassName: StatusEffectPrereq
+              statusEffect: GameplayRestriction.FistFight
+              tagToCheck: None
+            - $type: StatusEffectPrereq
+              invert: true
+              objectToCheck: None
+              prereqClassName: StatusEffectPrereq
+              statusEffect: BaseStatusEffect.CESmokeTankCooldown
+              tagToCheck: None        
+            - $type: HitPrereq
+              callbackType: HitReceived
+              ignoreSelfInflictedPressureWave: true
+              isSynchronous: true
+              pipelineStage: Process
+              pipelineType: Damage
+              prereqClassName: HitReceivedPrereq
+              conditions: 
+                - $type: HitPrereqCondition
+                  invert: true
+                  type: Prereqs.HitFlag
+                  hitFlag: DealNoDamage
+                - $type: HitPrereqCondition
+                  type: Prereqs.InstigatorType
+                  instigatorType: Puppet
+                - $type: HitPrereqCondition
+                  type: Prereqs.WeaponType
+                  weaponType: Melee    
+
+BaseStatusEffect.CESmokeTankCooldownDurationStat:
+  $type: ConstantStatModifier
+  modifierType: Additive
+  statType: BaseStats.MaxDuration
+  value: 30
+
+BaseStatusEffect.CESmokeTankCooldown:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - BaseStatusEffect.CESmokeTankCooldownDurationStat
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+
+
+UIIcon.Ability.CESmokeTank:
+  $type: UIIcon
+  atlasPartName: ICONS_HasThunderGod
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CEKSmokeTankAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CESmokeTank
+

@@ -1,0 +1,100 @@
+BaseStats.CE_HasVoodoo:
+  $type: Stat
+  enumName: CE_HasVoodoo
+  flags: [ ]
+  decimalPlaces: 2
+  max: 1
+  min: 0
+
+Ability.CE_HasVoodoo:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_voodoo"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_voodoo"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.CE_HasVoodoo
+        value: 1    
+
+CE_HasVoodooAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_HasVoodoo
+
+UIIcon.Ability.CE_HasVoodoo:
+  $type: UIIcon
+  atlasPartName: ICONS_Voodoo
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+
+BaseStatusEffect.CE_VoodooHeal:
+  $type: StatusEffect
+  VFX:
+    - BaseStatusEffect.CombatStim_inline3
+  gameplayTags: ["Buff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 10
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+
+BaseStatusEffect.CE_Voodoo:
+  $type: StatusEffect
+  gameplayTags: ["Buff"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  packages:
+    - $type: GameplayLogicPackage
+      stackable: true
+      stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.HasKerenzikov
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.IMSABonusAccuracy
+          value: 0.5 # change to 0.1 todo
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.HasSandevistan
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.HasSandevistanTier3
+          value: 1
+      effectors:
+        - Ability.HasICECounterHack_Smasher_inline1
+        - Ability.HasICECounterHack_Smasher_inline6

@@ -1,0 +1,231 @@
+BaseStats.CE_PlayerECM:
+  $type: Stat
+  enumName: CE_PlayerECM
+  flags: [ ]
+  decimalPlaces: 1
+  max: 5
+  min: 0
+
+CE_Cyberware.ECM$(tier):
+  $instances:
+    - { tier: Uncommon, nextTier: CE_Cyberware.ECMUncommonPlus }
+    - { tier: UncommonPlus, nextTier: CE_Cyberware.ECMRare }
+    - { tier: Rare, nextTier: CE_Cyberware.ECMRarePlus }
+    - { tier: RarePlus, nextTier: CE_Cyberware.ECMEpic }
+    - { tier: Epic, nextTier: CE_Cyberware.ECMEpicPlus }
+    - { tier: EpicPlus, nextTier: CE_Cyberware.ECMLegendary }
+    - { tier: Legendary, nextTier: CE_Cyberware.ECMLegendaryPlus }
+    - { tier: LegendaryPlus, nextTier: CE_Cyberware.ECMLegendaryPlusPlus }
+    - { tier: LegendaryPlusPlus, nextTier: None }
+  $base: Items.AdvancedBoringPlating$(tier)
+  buyPrice:
+    - Price.BaseCyberwarePrice
+    - Price.ItemQualityMultiplier
+    - Price.PlusTierMultiplier
+    - Price.CyberwareMultiplier
+    - Price.BuyPrice_StreetCred_Discount
+    - Items.AdvancedElectroshockMechanismCommon_inline9
+  sellPrice:
+    - Price.BaseCyberwarePrice
+    - Price.ItemQualityMultiplier
+    - Price.PlusTierMultiplier
+    - Price.CyberwareMultiplier
+    - Price.CyberwareSellMultiplier
+    - Items.AdvancedElectroshockMechanismCommon_inline10
+  icon:
+    $type: UIIcon
+    atlasPartName: cw_integumentary_personalsoundsilencer
+    atlasResourcePath: base\gameplay\gui\common\icons\items\item_icons5.inkatlas
+  displayName: LocKey#cyberEnemies_cyberware_ecm_name
+  localizedDescription: LocKey#cyberEnemies_cyberware_ecm_flavor
+  variants: [Variants.Humanity25CostTinkererVariant]
+  cyberwareType: ECM
+  nextUpgradeItem: $(nextTier)
+  OnEquip: 
+    - $type: GameplayLogicPackage
+      UIData: 
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#cyberEnemies_cyberware_ecm_description1
+      stats: 
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_PlayerECM
+          value: 1
+
+
+CE_Cyberware.ECM$(tier):
+  $instances:
+    - { tier: Rare }
+    - { tier: RarePlus }
+    - { tier: Epic }
+    - { tier: EpicPlus }
+    - { tier: Legendary }
+    - { tier: LegendaryPlus }
+    - { tier: LegendaryPlusPlus }
+  OnEquip: 
+    - !append 
+      $type: GameplayLogicPackage
+      UIData: 
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#cyberEnemies_cyberware_ecm_description2
+        floatValues: [5]
+    - !append 
+      $type: GameplayLogicPackage
+      UIData: 
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#51948
+      stats: 
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_PlayerECM
+          value: 1
+
+CE_Cyberware.ECM$(tier):
+  $instances:
+    - { tier: Epic }
+    - { tier: EpicPlus }
+    - { tier: Legendary }
+    - { tier: LegendaryPlus }
+    - { tier: LegendaryPlusPlus }
+  OnEquip: 
+    - !append
+      $type: GameplayLogicPackage
+      UIData: 
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#51949
+      stats: 
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_PlayerECM
+          value: 1
+
+
+CE_Cyberware.ECM$(tier):
+  $instances:
+    - { tier: Legendary }
+    - { tier: LegendaryPlus }
+    - { tier: LegendaryPlusPlus }
+  OnEquip: 
+    - !append
+      $type: GameplayLogicPackage
+      stats: 
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_PlayerECM
+          value: 1
+      UIData: 
+        $type: GameplayLogicPackageUIData
+        localizedDescription: LocKey#51950
+
+
+CE_Cyberware.ECM$(tier):
+  $instances:
+    - { tier: Rare }
+    - { tier: RarePlus }
+    - { tier: Epic }
+    - { tier: EpicPlus }
+    - { tier: Legendary }
+    - { tier: LegendaryPlus }
+    - { tier: LegendaryPlusPlus }
+  OnEquip: 
+    - !append Attunements.TechArmorNoLineBreak
+
+BaseStatusEffect.CE_CommsNoise1:
+  $base: BaseStatusEffect.CommsNoise
+  statusEffectType: BaseStatusEffectTypes.Misc
+  SFX:
+    - !remove BaseStatusEffect.BaseCommsNoise_inline3
+  gameplayTags:
+    - !remove Quickhack
+    - !remove CovertQuickhacked
+  packages:
+    - $base: BaseStatusEffect.BaseCommsNoise_inline4
+      effectors:
+        - !remove BaseStatusEffect.BaseCommsNoise_inline7
+        - !remove BaseStatusEffect.BaseCommsNoise_inline8
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 2.0
+     
+BaseStatusEffect.CE_CommsNoise2:
+  $base: BaseStatusEffect.CommsNoiseLevel2
+  statusEffectType: BaseStatusEffectTypes.Misc
+  SFX:
+    - !remove BaseStatusEffect.BaseCommsNoise_inline3
+  gameplayTags:
+    - !remove Quickhack
+    - !remove CovertQuickhacked
+  packages:
+    - $base: BaseStatusEffect.BaseCommsNoise_inline4
+      effectors:
+        - !remove BaseStatusEffect.BaseCommsNoise_inline7
+        - !remove BaseStatusEffect.BaseCommsNoise_inline8
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 2.0
+
+BaseStatusEffect.CE_CommsNoise3:
+  $base: BaseStatusEffect.CommsNoiseLevel3
+  SFX:
+    - !remove BaseStatusEffect.BaseCommsNoise_inline3
+  statusEffectType: BaseStatusEffectTypes.Misc
+  packages:
+    - $base: BaseStatusEffect.BaseCommsNoise_inline4
+      effectors:
+        - !remove BaseStatusEffect.BaseCommsNoise_inline7
+        - !remove BaseStatusEffect.BaseCommsNoise_inline8
+  gameplayTags:
+    - !remove Quickhack
+    - !remove CovertQuickhacked
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 2.0
+
+Vendors.$(vendor):
+  $instances:
+    - { vendor: wat_lch_ripperdoc_01 }
+    - { vendor: bls_ina_se1_ripperdoc_01 }
+    - { vendor: bls_ina_se1_ripperdoc_02 }
+    - { vendor: cct_dtn_ripdoc_01 }
+    - { vendor: cz_con_ripdoc_01 }
+    - { vendor: cz_monument_ripperdoc_anderson }
+    - { vendor: cz_monument_ripperdoc_farida }
+    - { vendor: cz_stadium_ripperdoc_01 }
+    - { vendor: hey_spr_ripperdoc_01 }
+    - { vendor: pac_wwd_ripperdoc_01 }
+    - { vendor: std_arr_ripperdoc_01 }
+    - { vendor: std_rcr_ripperdoc_01 }
+    - { vendor: wat_kab_ripperdoc_01 }
+    - { vendor: wat_kab_ripperdoc_02 }
+    - { vendor: wat_kab_ripperdoc_03 }
+    - { vendor: wat_nid_ripperdoc_01 }
+    - { vendor: wbr_hil_ripdoc_01 }
+    - { vendor: wbr_jpn_ripperdoc_01 }
+    - { vendor: wbr_jpn_ripperdoc_02 }
+  itemStock:
+    - !append
+      $instances:
+        - { quality: Uncommon }
+        - { quality: Rare }
+        - { quality: Epic }
+        - { quality: Legendary }
+      generationPrereqs:
+        - LootPrereqs.$(quality)CWLevelAvailabilityAtVendor
+      item: CE_Cyberware.ECM$(quality)
+      quantity:
+        - Vendors.Always_Present

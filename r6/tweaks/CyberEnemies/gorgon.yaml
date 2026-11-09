@@ -1,0 +1,254 @@
+Ability.CE_HasGorgon:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_gorgon"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_gorgon"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasGorgon
+          value: 1
+
+
+UIIcon.Ability.CE_HasGorgon:
+  $type: UIIcon
+  atlasPartName: ICONS_Gorgon
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CE_HasGorgonAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_HasGorgon
+
+BaseStats.CE_HasGorgon:
+  $type: Stat
+  enumName: CE_HasGorgon
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+BaseStatusEffect.CE_GorgonPlayerEffect1:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  packages:
+    - $type: GameplayLogicPackage
+      stats:
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.MaxSpeed
+          value: 0.8
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.HasCybereye
+          value: 0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.HasLinkToBountySystem
+          value: 0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.CanUseZoom
+          value: 0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.HasCybereye
+          value: 0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.JumpHeight
+          value: 0.5 
+        - $type: ConstantStatModifier
+          modifierType: AdditiveMultiplier
+          statType: BaseStats.BaseMeleeAttackStaminaCost
+          value: 0.5
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.AttackSpeed
+          value: 0.5
+
+BaseStatusEffect.CE_GorgonPlayerEffect2:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  packages:
+    - $type: GameplayLogicPackage
+      effectors:
+        - $type: ApplyStatGroupEffector
+          applicationTarget: Weapon
+          effectorClassName: ApplyStatGroupEffector
+          prereqRecord: Prereqs.AlwaysTruePrereq
+          removeWithEffector: true
+          statGroup: 
+            $type: StatModifierGroup
+            statModsLimit: -1
+            statModifiers:
+              - $type: ConstantStatModifier
+                modifierType: Multiplier
+                statType: BaseStats.RecoilKickMax
+                value: 2 
+              - $type: ConstantStatModifier
+                modifierType: Multiplier
+                statType: BaseStats.RecoilKickMin
+                value: 2 
+      stats:
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.MaxSpeed
+          value: 0.8
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.MaxSpeed
+          value: 0.8
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.HasSandevistan
+          value: 0.0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.HasBerserk
+          value: 0.0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.JumpHeight
+          value: 0.5    
+        - $type: ConstantStatModifier
+          modifierType: AdditiveMultiplier
+          statType: BaseStats.BaseMeleeAttackStaminaCost
+          value: 0.5
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.CanSprint
+          value: 0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.Acceleration
+          value: 0.5
+
+BaseStatusEffect.CE_GorgonPlayerEffect3:
+  $base: BaseStatusEffect.Electrocuted
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  packages:
+    - $type: GameplayLogicPackage
+      stackable: true
+      stats:
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.CanUseCovers
+          value: 0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.CanJump
+          value: 0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.HasDodge
+          value: 0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.HasDodgeAir
+          value: 0
+        - $type: ConstantStatModifier
+          modifierType: Multiplier
+          statType: BaseStats.MaxSpeed
+          value: 0.8
+
+BaseStatusEffect.CE_GorgonNPCEffect:
+  $type: StatusEffect
+  VFX:
+    - $type: StatusEffectFX
+      name: eye_flare
+  gameplayTags: ["Debuff"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+
+BaseStatusEffect.GorgonGrabCD0:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+BaseStatusEffect.GorgonGrabCD1:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 15
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+BaseStatusEffect.GorgonGrabCD2:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 15
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true

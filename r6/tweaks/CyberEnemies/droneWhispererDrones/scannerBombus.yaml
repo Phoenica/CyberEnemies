@@ -1,0 +1,66 @@
+BaseStats.CE_HasScannerDronesS1:
+  $type: Stat
+  enumName: CE_HasScannerDronesS1
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
+
+Ability.CE_HasScannerDronesS1:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_combatDrones"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_combatDrones"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasCombatDrones
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasScannerDronesS1
+          value: 1
+
+
+UIIcon.Ability.CE_HasScannerDronesS1:
+  $type: UIIcon
+  atlasPartName: ICONS_Carrier
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CE_HasScannerDronesS1AbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_HasScannerDronesS1
+
+
+BaseStatusEffect.CE_HasScannerDronesS1Cooldown:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: BaseStats.InfiniteDuration
+  isAffectedByTimeDilationNPC: true
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+Character.CE_ScannerBombus:
+  $base: Character.sq025_delamain_drone_bombus_fast
+  scannerModulePreset: ScanningNPCPresets.ScannerPreset_NPCNoAffiliation
+  displayName: LocKey#cyberEnemies_scannerBombus_name
+  tags:
+    - !append CEModPuppet
+    - !append CEModRoboScanner
+  abilities:
+    - !append Ability.CE_HasRadar
+  # $base: Character.sq025_delamain_drone_bombus_slow
+  # primaryEquipment: Character.Drone_Wyvern_Base_inline0

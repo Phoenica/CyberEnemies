@@ -1,0 +1,34 @@
+Character.ma_pac_cvi_15_griffin:
+  rarity: NPCRarity.Rare
+
+
+CEVoodooEq3:
+  $type: NPCEquipmentGroup
+  equipmentItems: 
+    - $type: NPCEquipmentItemPool
+      pool:
+        - $type: NPCEquipmentItemsPoolEntry
+          weight: 1.0
+          items:
+            - $type: NPCEquipmentItem
+              equipSlot: AttachmentSlots.WeaponRight
+              item: Items.Preset_Katana_Military
+
+Character.ma_pac_cvi_15_droid:
+  rarity: NPCRarity.Rare
+  abilities:
+    - !append Ability.CanBlock
+    - !append Ability.CanSprint
+    - !append Ability.CanGuardBreak
+    - !append Ability.HasDodge
+  primaryEquipment: CEVoodooEq3
+  characterType: NPCType.Human
+
+Character.sts_ep1_12_security_android_android2_lexington_ma:
+  abilities:
+    - !append Ability.CanGuardBreak
+    - !append Ability.CanBlock
+    - !append Ability.CanSprint
+    - !append Ability.HasDodge
+  primaryEquipment: CEVoodooEq3
+  characterType: NPCType.Human

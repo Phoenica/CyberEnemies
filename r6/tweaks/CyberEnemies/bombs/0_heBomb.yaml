@@ -1,0 +1,68 @@
+
+Ability.CE_HeBomb:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_bomb"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_bomb"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.CE_IsABomb
+        value: 1    
+    effectors:   
+      - $type: TriggerAttackEffector
+        effectorClassName: TriggerAttackByChanceEffector
+        selfStatusEffect: BaseStatusEffect.CE_BombDisabled
+        attackRecord: Attacks.ExplosionEnormous
+        chance: 1.0
+        prereqRecord:
+          $type: MultiPrereq  
+          aggregationType: AND
+          prereqClassName: gameMultiPrereq
+          nestedPrereqs: 
+            - $type: IPrereq
+              prereqClassName: HighLevelNPCStatePrereq
+              isInState: true
+              stateName: Dead
+      - $type: TriggerAttackEffector
+        effectorClassName: TriggerAttackByChanceEffector
+        selfStatusEffect: BaseStatusEffect.CE_BombDisabled
+        attackRecord: Attacks.RocketChargedExplosion
+        chance: 1.0
+        prereqRecord:
+          $type: MultiPrereq  
+          aggregationType: AND
+          prereqClassName: gameMultiPrereq
+          nestedPrereqs: 
+            - $type: IPrereq
+              prereqClassName: HighLevelNPCStatePrereq
+              isInState: true
+              stateName: Dead
+      - $type: TriggerAttackEffector
+        effectorClassName: TriggerAttackByChanceEffector
+        selfStatusEffect: BaseStatusEffect.CE_BombDisabled
+        attackRecord: Attacks.OdaSmokeBomb
+        chance: 1.0
+        prereqRecord:
+          $type: MultiPrereq  
+          aggregationType: AND
+          prereqClassName: gameMultiPrereq
+          nestedPrereqs: 
+            - $type: IPrereq
+              prereqClassName: HighLevelNPCStatePrereq
+              isInState: true
+              stateName: Dead
+      
+
+
+UIIcon.Ability.CE_HeBomb:
+  $type: UIIcon
+  atlasPartName: ICONS_HasHealthMonitorBomb
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CE_HeBombAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_HeBomb

@@ -1,0 +1,169 @@
+BaseStats.CE_AegisCDCounter:
+  $type: Stat
+  enumName: CE_AegisCDCounter
+  flags: [ ]
+  decimalPlaces: 1
+  max: 50
+  min: 0
+
+Ability.CE_HasAegis:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_aegis"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_aegis"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.ElectricResistance
+        value: -25  
+    effectors:
+      - $type: Effector      
+        effectorClassName: CyberEnemies.Aegis.ApplyStatusEffector
+        prereqRecord: 
+          $type: HitPrereq
+          callbackType: HitReceived
+          conditions: 
+            - $type: HitPrereqCondition
+              type: Prereqs.AttackType
+              attackType: Ranged
+            - $type: HitPrereqCondition
+              type: Prereqs.WeaponType
+              weaponType: Ranged
+          ignoreSelfInflictedPressureWave: true
+          isSynchronous: true
+          pipelineStage: Process
+          pipelineType: Damage
+          prereqClassName: HitReceivedPrereq
+        
+CE_HasAegisAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CE_HasAegis
+
+UIIcon.Ability.CE_HasAegis:
+  $type: UIIcon
+  atlasPartName: ICONS_IsImmune
+  atlasResourcePath: base\gameplay\gui\common\icons\abilities_tooltips_icons.inkatlas
+
+BaseStatusEffect.CE_AegiesCooldownStat:
+  $type: ConstantStatModifier
+  modifierType: Additive
+  statType: BaseStats.MaxDuration
+  value: 180
+
+BaseStatusEffect.CE_AegiesCooldown:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - BaseStatusEffect.CE_AegiesCooldownStat
+  isAffectedByTimeDilationNPC: false
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+
+BaseStatusEffect.CE_AegisSmoke:
+  $type: StatusEffect
+  gameplayTags: ["Debuff"]
+  packages:
+    - $type: GameplayLogicPackage
+      stackable: true
+      stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_AegisCDCounter
+          value: 1     
+  VFX:
+    - $type: StatusEffectFX
+      name: stand_inhale_drug_exhale
+    - $type: StatusEffectFX
+      name: decay
+    - $type: StatusEffectFX
+      name: status_electricity_resistance
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxDuration
+        value: 1
+  isAffectedByTimeDilationNPC: false
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 50
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+
+BaseStatusEffect.CE_AegiesActiveStat:
+  $type: ConstantStatModifier
+  modifierType: Additive
+  statType: BaseStats.MaxDuration
+  value: 20
+
+BaseStatusEffect.CE_AegiesActive:
+  $type: StatusEffect
+  packages:
+    - $type: GameplayLogicPackage
+      effectors: 
+        - $type: Effector      
+          effectorClassName: CyberEnemies.Aegis.DefendEffector
+          prereqRecord: 
+            $type: HitPrereq
+            callbackType: HitReceived
+            conditions: 
+              - $type: HitPrereqCondition
+                type: Prereqs.AttackType
+                attackType: Ranged
+              - $type: HitPrereqCondition
+                type: Prereqs.WeaponType
+                weaponType: Ranged
+            ignoreSelfInflictedPressureWave: true
+            isSynchronous: true
+            pipelineStage: Process
+            pipelineType: Damage
+            prereqClassName: HitReceivedPrereq
+  gameplayTags: ["Buff"]
+  duration: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - BaseStatusEffect.CE_AegiesActiveStat
+  isAffectedByTimeDilationNPC: false
+  isAffectedByTimeDilationPlayer: true
+  maxStacks: 
+    $type: StatModifierGroup
+    statModsLimit: -1
+    statModifiers: 
+      - $type: ConstantStatModifier
+        modifierType: Additive
+        statType: BaseStats.MaxStacks
+        value: 1
+  savable: true
+  statusEffectType: BaseStatusEffectTypes.Misc
+  stopActiveSfxOnDeactivate: true
+  uiData: 
+    $type: StatusEffectUIData
+    iconPath: armor_boost
+    priority: -7

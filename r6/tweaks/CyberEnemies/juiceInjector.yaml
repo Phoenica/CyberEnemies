@@ -1,0 +1,35 @@
+Ability.CEJuiceInjector:
+  $type: GameplayAbility
+  loc_key_name: "LocKey#cyberEnemies_abilityName_juiceInjector"
+  loc_key_desc: "LocKey#cyberEnemies_abilityDescription_juiceInjector"
+  showInCodex: true
+  abilityPackage:
+    $type: GameplayLogicPackage
+    stats:
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.CE_HasJuiceInjector
+          value: 1
+        - $type: ConstantStatModifier
+          modifierType: Additive
+          statType: BaseStats.ChemicalResistance
+          value: -100   
+
+
+UIIcon.Ability.CEJuiceInjector:
+  $type: UIIcon
+  atlasPartName: ICONS_HasHealingSkin
+  atlasResourcePath: phoenicia\cyberenemies\icons\abilities.inkatlas
+
+CEJuiceInjectorAbilityGroup:
+  $type: GameplayAbilityGroup
+  abilities: 
+    - Ability.CEJuiceInjector
+
+BaseStats.CE_HasJuiceInjector:
+  $type: Stat
+  enumName: CE_HasJuiceInjector
+  flags: [ ]
+  decimalPlaces: 1
+  max: 1
+  min: 0
