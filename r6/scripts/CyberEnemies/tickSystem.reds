@@ -7,6 +7,7 @@ import CyberEnemies.ExtraEnemies.*
 import CyberEnemies.Radar.*
 
 import CyberEnemies.Configurations.*
+import CyberEnemies.FlashStepIntegration.*
 
 
 @addField(NPCPuppet)
@@ -888,73 +889,19 @@ public class TickSystem extends ScriptableSystem {
     private func HandleFlashStepAbility(entities: array<ref<Entity>>) {
         let size = ArraySize(entities);
         let i = 0;
-
         while (i < size) {
             let npc = entities[i] as NPCPuppet;
-
-            let hasFlashStep = this.statsSystem.GetStatValue(Cast<StatsObjectID>(npc.GetEntityID()), IntEnum<gamedataStatType>(EnumValueFromName(n"gamedataStatType", n"CE_HasFlashStep"))); 
-            let HasSandevistan = this.statsSystem.GetStatValue(Cast<StatsObjectID>(npc.GetEntityID()), IntEnum<gamedataStatType>(EnumValueFromName(n"gamedataStatType", n"HasSandevistan"))); 
-            let distanceToPlayer = Vector4.Distance(npc.GetWorldPosition(), this.player.GetWorldPosition());
-
-            if (HasSandevistan > 0.0 && hasFlashStep > 0.0 && !VehicleComponent.IsMountedToVehicle(this.player.GetGame(), this.player) && CheckCommonRestrictions(npc, true, false) && !StatusEffectSystem.ObjectHasStatusEffect(npc, t"BaseStatusEffect.CE_FlashStepCD") && NPCPuppet.IsInCombatWithTarget(npc, this.player)) {
-                let bb: ref<IBlackboard>;
-                let isOnGround: Bool;
-
-                bb = GameInstance.GetBlackboardSystem(GetGameInstance())
-                    .GetLocalInstanced(
-                        GetPlayer(GetGameInstance()).GetEntityID(),
-                        GetAllBlackboardDefs().PlayerStateMachine
-                    );
-
-                isOnGround = bb.GetBool(GetAllBlackboardDefs().PlayerStateMachine.IsOnGround);
-                if (distanceToPlayer > 4.0 && distanceToPlayer < 25.0 && IsLookingAtTarget(npc, this.player, 45) && isOnGround) {
-                    this.TryFlashStep(npc);
+            if !CE_DelegatesFlashStep(npc) {
+                let command = CE_PrepareFlashStep(npc, this.player);
+                if IsDefined(command) {
+                    CE_CommitFlashStep(npc);
+                    let event = new AICommandEvent();
+                    event.command = command;
+                    npc.QueueEvent(event);
                 }
             }
-
             i += 1;
         }
-    }
-
-    private func TryFlashStep(npc: ref<NPCPuppet>) {
-        let queryDirection: Vector4;
-
-        queryDirection = this.player.GetWorldForward();
-
-        let newPosition: Vector4 = this.player.GetWorldPosition();
-        let playerTargetVector: Vector4 = this.player.GetWorldPosition() - npc.GetWorldPosition();
-
-        if (playerTargetVector.X < 0.0) {
-            queryDirection.X = -AbsF(queryDirection.X);
-        } else {
-            queryDirection.X = AbsF(queryDirection.X);
-        }
-
-        if (playerTargetVector.Y < 0.0) {
-            queryDirection.Y = -AbsF(queryDirection.Y);
-        } else {
-            queryDirection.Y = AbsF(queryDirection.Y);
-        }
-
-        if (!SpatialQueriesHelper.HasSpaceInFront(this.player, queryDirection, 0.1, 0.5, 0.5, 2.0)) { 
-            return;
-        }
-
-        newPosition.X += queryDirection.X;
-        newPosition.Y += queryDirection.Y;
-
-        let rotation: EulerAngles = Quaternion.ToEulerAngles(npc.GetWorldOrientation());
-
-        StatusEffectHelper.ApplyStatusEffect(npc, t"BaseStatusEffect.CE_FlashStepCD");
-
-        GameInstance.GetAudioSystem(npc.GetGame()).Play(StringToName("ce_sonido"), npc.GetEntityID(), n"V");
-        let aiCommandEvent: ref<AICommandEvent>;
-        aiCommandEvent = new AICommandEvent();
-        let aiTeleportCommand: ref<AITeleportCommand> = new AITeleportCommand();
-        aiTeleportCommand.position = newPosition;
-        aiTeleportCommand.rotation = AngleNormalize180(rotation.Yaw + 180.0);
-        aiCommandEvent.command = aiTeleportCommand;
-        npc.QueueEvent(aiCommandEvent);
     }
 
 // OnCameraShakeEvent - todo - add from player puppet? and hurt noise
